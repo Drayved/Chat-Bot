@@ -45,4 +45,4 @@ app.post("/", async (req, res) => {
     }
 })
 
-app.listen(5002, () => console.log("Service is running"))
+app.listen(5002, () => console.log("Service is running!"))
