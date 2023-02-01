@@ -2,7 +2,7 @@ import bot from "./assets/bot.svg"
 import user from "./assets/user.svg"
 
 const form = document.querySelector("form")
-const chatContainer = document.querySelector("#chat-container")
+const chatContainer = document.getElementById("chat_container")
 
 let loadInterval
 
@@ -63,7 +63,7 @@ const handleSubmit = async (e) => {
     e.preventDefault()
 
     const data = new FormData(form)
-
+    
     chatContainer.innerHTML += chatStripe(false, data.get("prompt"))
 
     form.reset()
@@ -71,7 +71,8 @@ const handleSubmit = async (e) => {
     const uniqueId = generateUniqueId()
     chatContainer.innerHTML += chatStripe(true, " ", uniqueId)
 
-    chatContainer.scrollTop = chatContainer.scrollHeight
+    
+    chatContainer.scrollTop = chatContainer.scrollHeight;
 
     const messageDiv = document.getElementById(uniqueId)
 
