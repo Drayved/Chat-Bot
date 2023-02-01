@@ -3,6 +3,7 @@ import user from "./assets/user.svg"
 
 const form = document.querySelector("form")
 const chatContainer = document.getElementById("chat_container")
+const app = document.getElementById("app")
 
 let loadInterval
 
@@ -25,8 +26,11 @@ function typeText(element, text){
         if(index < text.length) {
             element.innerHTML += text.charAt(index)
             index++
+            chatContainer.scrollIntoView({block: 'end', behavior: 'smooth'})
         }else{
             clearInterval(interval)
+            app.scrollIntoView({block: 'end', behavior: 'smooth'});
+            scrollToBottom()
         }
     }, 20)
 }
@@ -71,13 +75,14 @@ const handleSubmit = async (e) => {
     const uniqueId = generateUniqueId()
     chatContainer.innerHTML += chatStripe(true, " ", uniqueId)
 
+    app.scrollIntoView({block: 'end', behavior: 'smooth'});
+    chatContainer.scrollTop = chatContainer.scrollHeight - chatContainer.clientHeight;
     
-    chatContainer.scrollTop = chatContainer.scrollHeight;
 
     const messageDiv = document.getElementById(uniqueId)
 
     loader(messageDiv)
-
+    
     const response = await fetch("https://chat-bot-7ka1.onrender.com", {
         method: "POST",
         headers: {
@@ -90,14 +95,15 @@ const handleSubmit = async (e) => {
     console.log(response)
     clearInterval(loadInterval)
     messageDiv.innerHTML = ""
-
+    
     if(response.ok) {
         const data = await response.json()
         const parsedData = data.bot.trim()
-
+        
         console.log(parsedData)
 
         typeText(messageDiv, parsedData)
+        
     }else{
         const err = await response.text()
 
@@ -115,3 +121,8 @@ form.addEventListener("keyup", (e) => {
         
     }
 })
+
+function scrollToBottom() {
+    
+}
+  
