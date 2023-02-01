@@ -45,4 +45,4 @@ app.post("/", async (req, res) => {
     }
 })
 
-app.listen("https://chat-bot-7ka1.onrender.com", () => console.log("Service is running"))
+app.listen(500, () => console.log("Service is running"))
